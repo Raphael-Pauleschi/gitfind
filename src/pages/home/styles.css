@@ -9,10 +9,33 @@
     height: 100vh;
     position: absolute;
     left: 0;
+    z-index: -1;
 }
 
 .info{
     width: 60%;
     margin-right: 90px;
     margin-top: 40px;
+}
+
+input{
+    border: 1px solid #999999;
+    border-radius: 22px;
+    min-width: 50px;
+    width: 80%;
+    margin-left: 12px;
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+}
+
+button{
+    border: 1px solid #999999;
+    border-radius: 22px;
+    margin-left: 12px;
+    background: #203338;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
 }

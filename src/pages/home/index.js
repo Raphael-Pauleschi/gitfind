@@ -9,7 +9,13 @@ function App() {
   <Header/>
   <div className="conteudo">
     <img src={background} className="background" alt="Git symbol background"/>
-    <div className="info">Eu sou... um teste</div>
+    <div className="info">
+      Eu sou... um teste
+      <div>
+        <input name="usuario" placeholder="@username"/>
+        <button>Busca</button>
+      </div>
+      </div>
   </div>
   </div>
 
