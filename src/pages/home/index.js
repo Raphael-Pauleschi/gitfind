@@ -1,6 +1,7 @@
 import { Header } from "../../components/Header";
 import background from "../../assets/background.png";
 import "./styles.css";
+import ItemList from '../../components/ItemList';
 
 function App() {
   return (
@@ -32,7 +33,10 @@ function App() {
           </div>
           <hr/>
           <div>
-            <h4>Repositórios</h4>
+            <h4 className="repositorio">Repositórios</h4>
+            <ItemList title="Git Find" description="Sou eu"/>
+            <ItemList title="Git Find" description="Sou eu"/>
+            <ItemList title="Git Find" description="Sou eu"/>
           </div>
         </div>
       </div>
