@@ -1,9 +1,21 @@
 import { Header } from "../../components/Header";
 import background from "../../assets/background.png";
 import "./styles.css";
-import ItemList from '../../components/ItemList';
+import ItemList from "../../components/ItemList";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState("");
+  const [currentuser, setCurrentUser] = useState({});
+  const [repos, setRepos] = useState([]);
+  
+  const handleGetData = async () => {
+    const userData = await fetch(`https://api.github.com/users/${user}`)
+    const newUser = await userData.json();
+
+    console.log(newUser);
+  };
+  
   return (
     <div className="App">
       <Header />
@@ -16,8 +28,13 @@ function App() {
         <div className="info">
           Eu sou... um teste
           <div>
-            <input name="usuario" placeholder="@username" />
-            <button>Busca</button>
+            <input
+              name="usuario"
+              value={user}
+              onChange={(event) => setUser(event.target.value)}
+              placeholder="@username"
+            />
+            <button onClick={handleGetData}>Busca</button>
           </div>
           <div className="perfil">
             <img
@@ -31,12 +48,12 @@ function App() {
               <p>Descrição</p>
             </div>
           </div>
-          <hr/>
+          <hr />
           <div>
             <h4 className="repositorio">Repositórios</h4>
-            <ItemList title="Git Find" description="Sou eu"/>
-            <ItemList title="Git Find" description="Sou eu"/>
-            <ItemList title="Git Find" description="Sou eu"/>
+            <ItemList title="Git Find" description="Sou eu" />
+            <ItemList title="Git Find" description="Sou eu" />
+            <ItemList title="Git Find" description="Sou eu" />
           </div>
         </div>
       </div>
