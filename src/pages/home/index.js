@@ -6,16 +6,28 @@ import { useState } from "react";
 
 function App() {
   const [user, setUser] = useState("");
-  const [currentuser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [repos, setRepos] = useState([]);
-  
+
   const handleGetData = async () => {
-    const userData = await fetch(`https://api.github.com/users/${user}`)
+    const userData = await fetch(`https://api.github.com/users/${user}`);
     const newUser = await userData.json();
 
-    console.log(newUser);
+    if (newUser.name) {
+      const { avatar_url, name, bio, login } = newUser;
+      setCurrentUser({avatar_url, name, bio, login});
+      console.log(currentUser)
+      const reposData = await fetch(
+        `https://api.github.com/users/${user}/repos`
+      );
+      const newRepos = await reposData.json();
+
+      if (newRepos.length) {
+        setRepos(newRepos);
+      }
+    }
   };
-  
+
   return (
     <div className="App">
       <Header />
@@ -26,7 +38,6 @@ function App() {
           alt="Git symbol background"
         />
         <div className="info">
-          Eu sou... um teste
           <div>
             <input
               name="usuario"
@@ -36,25 +47,31 @@ function App() {
             />
             <button onClick={handleGetData}>Busca</button>
           </div>
-          <div className="perfil">
-            <img
-              src="https://avatars.githubusercontent.com/u/84625141?v=4"
-              className="profile"
-              alt="profile"
-            />
+          {currentUser?.name ? (
+            <>
+              <div className="perfil">
+                <img
+                  src={currentUser.avatar_url}
+                  className="profile"
+                  alt="profile"
+                />
+                <div>
+                  <h3>{currentUser.name}</h3>
+                  <span>@{currentUser.login}</span>
+                  <p>{currentUser.bio}</p>
+                </div>
+              </div>
+              <hr />
+            </>
+          ): null}
+          {repos?.length ? (
             <div>
-              <h3>Raphael-Pauleschi</h3>
-              <span>@raphael-pauleschi</span>
-              <p>Descrição</p>
+              <h4 className="repositorio">Repositórios</h4>
+              {repos.map((repo) => (
+                <ItemList key={repo.node_id} title={repo.name} description={repo.description}/>
+              ))}
             </div>
-          </div>
-          <hr />
-          <div>
-            <h4 className="repositorio">Repositórios</h4>
-            <ItemList title="Git Find" description="Sou eu" />
-            <ItemList title="Git Find" description="Sou eu" />
-            <ItemList title="Git Find" description="Sou eu" />
-          </div>
+          ): null}
         </div>
       </div>
     </div>
